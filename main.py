@@ -1,4 +1,5 @@
 import sys
+import time
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt, QRect, pyqtSignal, QThread
