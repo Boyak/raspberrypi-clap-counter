@@ -1,10 +1,27 @@
-from gpiozero import Button
 import sys
+import time
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt, QRect
+from PyQt5.QtCore import Qt, QRect, pyqtSignal, QThread
+from gpiozero import Button
 
-label_main = None
+class MyThread(QThread):
+    # Define a new signal called 'trigger' that has no arguments.
+    trigger = pyqtSignal(int)
+
+    def __init__(self, *args, **kwargs):
+        QThread.__init__(self, *args, **kwargs)
+        self.button = Button(2)
+        self.counter = 0
+
+    def run(self):
+        while True:
+            if self.button.is_pressed:
+                self.counter += 1
+                time.sleep(0.2)  # Simple debounce
+            self.trigger.emit(self.counter)
+            time.sleep(0.1)  # Frequency of checking button state
+
 class MyMainWindow(QMainWindow):
 
     def __init__(self):
@@ -32,15 +49,20 @@ class MyMainWindow(QMainWindow):
         # Set the geometry of the main window
         self.setGeometry(0, 0, screen_width, screen_height)
         self.setWindowState(Qt.WindowFullScreen)
-        label_main = self.label
+
+        self.thread = MyThread()
+        self.thread.trigger.connect(self.update_label)
+        self.thread.start()
 
     def keyPressEvent(self, event):
         # Allow closing the app by pressing the Escape key
         if event.key() == Qt.Key_Escape:
             self.close()
-    def update_label_text(self, new_text):
-        self.label.setText(new_text)
 
+    def update_label(self, counter):
+        # Replace with your logic to fetch new text
+        new_text = "Updated Text. Button presses: " + str(counter)
+        self.label.setText(new_text)
 
 def main():
     app = QApplication(sys.argv)
@@ -48,20 +70,5 @@ def main():
     main_win.show()
     sys.exit(app.exec_())
 
-    button = Button(pin=2, bounce_time=0.2)
-    counter = 0
-    while True:
-        button.wait_for_press()
-        button.wait_for_release()
-        counter = counter+1
-        print('You pushed me')
-        print(counter)
-        main_win.update_label_text(counter)
-
-
-    
-
-
 if __name__ == "__main__":
     main()
-
