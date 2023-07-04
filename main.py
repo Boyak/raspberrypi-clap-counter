@@ -1,5 +1,4 @@
 import sys
-import time
 from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt, QRect, pyqtSignal, QThread
@@ -13,12 +12,13 @@ class MyThread(QThread):
         QThread.__init__(self, *args, **kwargs)
         self.button = Button(2)
         self.counter = 0
+        self.button.when_pressed = self.button_pressed
+
+    def button_pressed(self):
+        self.counter += 1
 
     def run(self):
         while True:
-            if self.button.is_pressed:
-                self.counter += 1
-                time.sleep(0.2)  # Simple debounce
             self.trigger.emit(self.counter)
             time.sleep(0.1)  # Frequency of checking button state
 
