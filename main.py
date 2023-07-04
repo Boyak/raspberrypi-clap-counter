@@ -32,7 +32,7 @@ class MyMainWindow(QMainWindow):
         # Set the geometry of the main window
         self.setGeometry(0, 0, screen_width, screen_height)
         self.setWindowState(Qt.WindowFullScreen)
-        label_main = label
+        label_main = self.label
 
     def keyPressEvent(self, event):
         # Allow closing the app by pressing the Escape key
