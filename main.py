@@ -9,6 +9,7 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setup(switch, GPIO.IN)
 
 while True:
+    time.sleep(0.2)
     print('Switch status = ', GPIO.input(switch))
 
 GPIO.cleanup()
