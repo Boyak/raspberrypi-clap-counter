@@ -11,7 +11,7 @@ class MyThread(QThread):
 
     def __init__(self, *args, **kwargs):
         QThread.__init__(self, *args, **kwargs)
-        self.button = Button(2, bounce_time=0.2)
+        self.button = Button(2)
         self.counter = 0
         self.button.when_pressed = self.button_pressed
 
@@ -21,6 +21,7 @@ class MyThread(QThread):
     def run(self):
         while True:
             self.trigger.emit(self.counter)
+            time.sleep(0.1)  # Frequency of checking button state
 
 class MyMainWindow(QMainWindow):
 
