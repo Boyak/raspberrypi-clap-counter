@@ -53,7 +53,7 @@ def main():
         counter = counter+1
         print('You pushed me')
         print(counter)
-        self.label.setText(counter)
+        label_main.setText(counter)
 
 
     sys.exit(app.exec_())
