@@ -62,7 +62,7 @@ class MyMainWindow(QMainWindow):
 
     def update_label(self, counter):
         # Replace with your logic to fetch new text
-        new_text = "Updated Text. Button presses: " + str(counter)
+        new_text = "Samsung. Ilosc zamkniec: " + str(counter)
         self.label.setText(new_text)
 
 def main():
