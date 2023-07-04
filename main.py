@@ -38,12 +38,15 @@ class MyMainWindow(QMainWindow):
         # Allow closing the app by pressing the Escape key
         if event.key() == Qt.Key_Escape:
             self.close()
+    def update_label_text(self, new_text):
+        self.label.setText(new_text)
 
 
 def main():
     app = QApplication(sys.argv)
     main_win = MyMainWindow()
     main_win.show()
+    sys.exit(app.exec_())
 
     button = Button(pin=2, bounce_time=0.2)
     counter = 0
@@ -53,10 +56,10 @@ def main():
         counter = counter+1
         print('You pushed me')
         print(counter)
-        label_main.setText(counter)
+        main_win.update_label_text(counter)
 
 
-    sys.exit(app.exec_())
+    
 
 
 if __name__ == "__main__":
