@@ -4,7 +4,7 @@ from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt, QRect
 
-
+label_main = None
 class MyMainWindow(QMainWindow):
 
     def __init__(self):
@@ -32,6 +32,7 @@ class MyMainWindow(QMainWindow):
         # Set the geometry of the main window
         self.setGeometry(0, 0, screen_width, screen_height)
         self.setWindowState(Qt.WindowFullScreen)
+        label_main = label
 
     def keyPressEvent(self, event):
         # Allow closing the app by pressing the Escape key
