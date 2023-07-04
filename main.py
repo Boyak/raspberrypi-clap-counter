@@ -21,7 +21,6 @@ class MyThread(QThread):
     def run(self):
         while True:
             self.trigger.emit(self.counter)
-            time.sleep(0.1)  # Frequency of checking button state
 
 class MyMainWindow(QMainWindow):
 
