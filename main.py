@@ -1,4 +1,9 @@
 from gpiozero import Button
+import sys
+from PyQt5.QtWidgets import QApplication, QLabel, QMainWindow
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt, QRect
+
 button = Button(pin=2, bounce_time=0.2)
 
 counter = 0
